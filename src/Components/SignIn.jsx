@@ -8,7 +8,7 @@ import {
   Pressable,
 
 } from "react-native";
-import styles from "./styles";
+import styles from "./stylesSignIn";
 import Svg, { Image, Ellipse, ClipPath } from "react-native-svg";
 import Animated, {
   useSharedValue,
@@ -21,12 +21,18 @@ import Animated, {
   withSpring
 } from "react-native-reanimated";
 import { ScrollView } from "react-native-gesture-handler";
+import { Alert } from "react-native-web";
+import { Dispatch } from "react";
 
 export default function App() {
   const { height, width } = Dimensions.get("window");
   const imagePosition = useSharedValue(1);
   const formButtonScale = useSharedValue(1);
   const [isRegistering, setIsRegistering] = useState(false);
+
+  // form
+  let{ name, lastName, age, photo, email, password}= React.useRef()
+ 
 
   const imageAnimatedStyle = useAnimatedStyle(() => {
     const interpolation = interpolate(
@@ -65,7 +71,7 @@ export default function App() {
   const formAnimatedStyle = useAnimatedStyle(() => {
     return {
         
-        height: 500,
+     height: 900, 
       opacity:
         imagePosition.value === 0
           ? withDelay(400, withTiming(1, { duration: 800 }))
@@ -84,6 +90,7 @@ export default function App() {
     if (isRegistering) {
       runOnJS(setIsRegistering)(false);
     }
+   
   };
 
   const registerHandler = () => {
@@ -92,8 +99,57 @@ export default function App() {
       runOnJS(setIsRegistering)(true);
     }
   };
+  const sendInfo=async()=>{
+  
+    if(isRegistering){
+      let form={
+        name: name.current.value,
+        lastName: lastName.curent.value,
+        email: email.current.value,
+        photo: photo.current.value,
+        age: age.current.value,
+        password:password.current.value,
+      }
+      console.log(form);
+  //     await axios.post(`${BASE}/auth/`, form)
+  //  .then((res=>{
+ 
+  //     try{
+  //       if (res.data.success){
+  //         Alert.arlet()
+  //       }else{
+  //         Alert.arlet()
+
+  //       }
+
+  //     }
+  //     catch(error){
+  //       Alert.arlet()
+
+  //     }
+  //   }))
+   
+  } else {
+    let form={
+      email: email.current.value,
+      password:password.current.value,
+    }
+    console.log(form)
+  }
+//   const answer= await dispatch(SignIn(signIn))
+// console.log(answer.payload)
+//   if(answer.payload.success){
+//    await Alert.alert( `${answer.payload.response}`)
+    
+//   } else {
+//     Alert.alert(`${ answer.payload.response }`)
+//     }
+  
+
+  }
 
   return (
+    <ScrollView>
     <Animated.View style={styles.container}>
       <Animated.View style={[StyleSheet.absoluteFill, imageAnimatedStyle]}>
         <Svg height={height + 100} width={width}>
@@ -125,12 +181,15 @@ export default function App() {
             <Text style={styles.buttonText}>REGISTER</Text>
           </Pressable>
         </Animated.View>
-        <Animated.View style={[styles.formInputContainer, formAnimatedStyle]}  >
-            <ScrollView  >
+        <Animated.View style={[styles.formInputContainer, formAnimatedStyle]} >
+            <ScrollView   >
           <TextInput
             placeholder="Email"
             placeholderTextColor="white"
             style={styles.textInput}
+            ref={email}
+            keyboardType={"email-address"}
+          
           />
           {isRegistering && (
             <>
@@ -138,30 +197,39 @@ export default function App() {
               placeholder="Name"
               placeholderTextColor="white"
               style={styles.textInput}
+              ref={name}
             />
             <TextInput
             placeholder="Last Name"
             placeholderTextColor="white"
             style={styles.textInput}
+            ref={lastName}
              />
              <TextInput
             placeholder="Photo"
             placeholderTextColor="white"
             style={styles.textInput}
+            ref={photo}
+
              />
              <TextInput
+             type='number'
             placeholder="Age"
             placeholderTextColor="white"
             style={styles.textInput}
+            ref={age}
+            keyboardType={'numeric'}
              />
           </>)}
           <TextInput
             placeholder="Password"
             placeholderTextColor="white"
             style={styles.textInput}
+            secureTextEntry={true}
+            ref={password}
           />
           <Animated.View style={[styles.formButton, formButtonAnimatedStyle]}>
-            <Pressable onPress={() => formButtonScale.value = withSequence(withSpring(1.5), withSpring(1))}>
+            <Pressable onPress={() => {formButtonScale.value = withSequence(withSpring(1.5), withSpring(1)), sendInfo() }}>
               <Text style={styles.buttonText}>
                 {isRegistering ? "REGISTER" : "LOG IN"}
               </Text>
@@ -171,5 +239,6 @@ export default function App() {
         </Animated.View>
       </View>
     </Animated.View>
+    </ScrollView>
   );
 }
