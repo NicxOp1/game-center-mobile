@@ -15,9 +15,10 @@ const DrawerNav = createDrawerNavigator();
 export default function Drawer() {
   return (
     <>
-      <DrawerNav.Navigator drawerContent={(props) => <MenuItems {...props} />}>
+      <DrawerNav.Navigator drawerContent={(props) => <MenuItems {...props} />} >
         <DrawerNav.Screen name="Profile" component={Profile} />
         <DrawerNav.Screen name="Library" component={Library} />
+        <DrawerNav.Screen name="Join" component={SignIn} />
       </DrawerNav.Navigator>
     </>
   );
@@ -26,7 +27,7 @@ export default function Drawer() {
 const MenuItems = ({ navigation }) => {
   return (
     <>
-      <DrawerContentScrollView style={StyleSheet.container}>
+      <DrawerContentScrollView style={StyleSheet.container} >
         <Text style={style.title}> Menu </Text>
         <Text style={style.title}> </Text>
         <MenuButtonItem
@@ -43,6 +44,10 @@ const MenuItems = ({ navigation }) => {
           text="Library"
           onPress={() => navigation.navigate("Library")}
         />
+        <MenuButtonItem
+          text="Join"
+          onPress={() => navigation.navigate("Join")}
+        />
       </DrawerContentScrollView>
     </>
   );
@@ -51,6 +56,7 @@ const MenuItems = ({ navigation }) => {
 const style = StyleSheet.create({
   container: {
     height: "100%",
+    backgroundColor: 'black',
   },
   title: {
     marginBottom: 10,

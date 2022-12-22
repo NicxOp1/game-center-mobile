@@ -1,8 +1,8 @@
 import userReducer from './userReducer'
-import gamesReducer from "./gamesReducer"
 
-const rootReducer ={
-    gamesReducer,
+
+const rootReducer = {
+
     userReducer,
 }
 export default rootReducer

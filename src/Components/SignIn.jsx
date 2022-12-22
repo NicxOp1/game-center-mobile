@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -22,7 +22,10 @@ import Animated, {
 } from "react-native-reanimated";
 import { ScrollView } from "react-native-gesture-handler";
 import { Alert } from "react-native-web";
-import { Dispatch } from "react";
+import { useDispatch } from  'react-redux'
+import userActions from '../Redux/Actions/userActions'
+import axios from 'axios'
+import { BASE } from '../Api/url';
 
 export default function App() {
   const { height, width } = Dimensions.get("window");
@@ -30,8 +33,18 @@ export default function App() {
   const formButtonScale = useSharedValue(1);
   const [isRegistering, setIsRegistering] = useState(false);
 
+  let dispatch = useDispatch()
+  let { SignIn } = userActions
+
+  let [name, setName]=useState('')
+  let [lastName, setLastName]=useState('')
+  let [email, setEmail]=useState('')
+  let [password, setPassword]=useState('')
+  let [age, setAge]=useState('')
+  let [photo, setPhoto]=useState('')
+
   // form
-  let{ name, lastName, age, photo, email, password}= React.useRef()
+ 
  
 
   const imageAnimatedStyle = useAnimatedStyle(() => {
@@ -48,7 +61,7 @@ export default function App() {
   });
 
   const buttonsAnimatedStyle = useAnimatedStyle(() => {
-    const interpolation = interpolate(imagePosition.value, [0, 1], [250, 0]);
+    const interpolation = interpolate(imagePosition.value, [0, 1], [500, 0]);
     return {
       
       opacity: withTiming(imagePosition.value, { duration: 500 }),
@@ -100,50 +113,39 @@ export default function App() {
     }
   };
   const sendInfo=async()=>{
-  
+   
+    
     if(isRegistering){
       let form={
-        name: name.current.value,
-        lastName: lastName.curent.value,
-        email: email.current.value,
-        photo: photo.current.value,
-        age: age.current.value,
-        password:password.current.value,
+        name: name,
+        lastName: lastName,
+        email: email,
+        photo:  photo,
+        age: age,
+        password:password,
       }
-      console.log(form);
-  //     await axios.post(`${BASE}/auth/`, form)
-  //  .then((res=>{
- 
-  //     try{
-  //       if (res.data.success){
-  //         Alert.arlet()
-  //       }else{
-  //         Alert.arlet()
 
-  //       }
-
-  //     }
-  //     catch(error){
-  //       Alert.arlet()
-
-  //     }
-  //   }))
+      await axios.post(`${BASE}/auth/`, form)
+   .then((res=>{
+  console.log(res)
+    
+    }))
    
   } else {
     let form={
-      email: email.current.value,
-      password:password.current.value,
+      email: email,
+      password:password,
     }
-    console.log(form)
-  }
-//   const answer= await dispatch(SignIn(signIn))
-// console.log(answer.payload)
-//   if(answer.payload.success){
-//    await Alert.alert( `${answer.payload.response}`)
+    const answer= await dispatch(SignIn(form))
+    console.log(answer)
+  //   if(answer.payload.success){
+  //     await Alert.alert( `${answer.payload.response}`)
+  //   } else {
+ 
+  //     Alert.alert(`${ answer.payload.response }`)
+  // }
     
-//   } else {
-//     Alert.alert(`${ answer.payload.response }`)
-//     }
+    }
   
 
   }
@@ -187,9 +189,19 @@ export default function App() {
             placeholder="Email"
             placeholderTextColor="white"
             style={styles.textInput}
-            ref={email}
+            // value={email}
+            onChangeText={(email) => setEmail(email)} 
             keyboardType={"email-address"}
+            required
           
+          />
+            <TextInput
+            placeholder="Password"
+            placeholderTextColor="white"
+            style={styles.textInput}
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(password) => setPassword(password)}
           />
           {isRegistering && (
             <>
@@ -197,19 +209,23 @@ export default function App() {
               placeholder="Name"
               placeholderTextColor="white"
               style={styles.textInput}
-              ref={name}
+              value={name}
+              onChangeText={(name) => setName(name)} 
+
             />
             <TextInput
             placeholder="Last Name"
             placeholderTextColor="white"
             style={styles.textInput}
-            ref={lastName}
+            value={lastName}
+            onChangeText={(lastName) => setLastName(lastName)} 
              />
              <TextInput
             placeholder="Photo"
             placeholderTextColor="white"
             style={styles.textInput}
-            ref={photo}
+            value={photo}
+            onChangeText={(photo) => setPhoto(photo)} 
 
              />
              <TextInput
@@ -217,17 +233,12 @@ export default function App() {
             placeholder="Age"
             placeholderTextColor="white"
             style={styles.textInput}
-            ref={age}
+            value={age}
+            onChangeText={(age) => setAge(age)} 
             keyboardType={'numeric'}
              />
           </>)}
-          <TextInput
-            placeholder="Password"
-            placeholderTextColor="white"
-            style={styles.textInput}
-            secureTextEntry={true}
-            ref={password}
-          />
+        
           <Animated.View style={[styles.formButton, formButtonAnimatedStyle]}>
             <Pressable onPress={() => {formButtonScale.value = withSequence(withSpring(1.5), withSpring(1)), sendInfo() }}>
               <Text style={styles.buttonText}>
