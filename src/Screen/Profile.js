@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
 } from "react-native";
 
 export default function Profile() {
@@ -15,46 +16,48 @@ export default function Profile() {
   };
   return (
     <>
-      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <View style={styles.contentProfileMain}>
-          <View style={styles.contenText}>
-            <Text style={styles.textProfile}>Account Settings</Text>
-            <Text style={styles.textProfile}>Manage Your Account Data</Text>
-          </View>
-          <View style={styles.editProfile}>
-            <Image
-              source={{
-                uri: "https://avatars.cloudflare.steamstatic.com/ef59212b7234514cc64e2eece3af15baf6eface1_full.jpg",
-              }}
-              style={{
-                height: 150,
-                width: 150,
-                borderColor: "black",
-                alignContent: "center",
-                borderRadius: 20,
-              }}
-            />
-            <View style={styles.contentProfile}>
-              <Text style={styles.textProfile}>Your Profile</Text>
-              <Button title="EDIT" color="#8a2be2" />
+      <ScrollView>
+        <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+          <View style={styles.contentProfileMain}>
+            <View style={styles.contenText}>
+              <Text style={styles.textProfile}>Account Settings</Text>
+              <Text style={styles.textProfile}>Manage Your Account Data</Text>
+            </View>
+            <View style={styles.editProfile}>
+              <Image
+                source={{
+                  uri: "https://avatars.cloudflare.steamstatic.com/ef59212b7234514cc64e2eece3af15baf6eface1_full.jpg",
+                }}
+                style={{
+                  height: 150,
+                  width: 150,
+                  borderColor: "black",
+                  alignContent: "center",
+                  borderRadius: 20,
+                }}
+              />
+              <View style={styles.contentProfile}>
+                <Text style={styles.textProfile}>Your Profile</Text>
+                <Button title="EDIT" color="#8a2be2" />
+              </View>
+            </View>
+            <StatusBar style="auto" />
+            <View style={styles.inputProfile}>
+              <TextInput style={styles.textInput} placeholder="Gabriel" />
+              <TextInput style={styles.textInput} placeholder="Cornide" />
+              <TextInput
+                style={styles.textInput}
+                placeholder="gabricornidel@gmail.com"
+              />
+              <TextInput style={styles.textInput} placeholder="**********" />
+              <TextInput
+                style={styles.textInput}
+                placeholder="https://avatars.cloudflare.steamstatic.com/ef59212b7234514cc64e2eece3af15baf6eface1_full.jpg"
+              />
             </View>
           </View>
-          <StatusBar style="auto" />
-          <View style={styles.inputProfile}>
-            <TextInput style={styles.textInput} placeholder="Gabriel" />
-            <TextInput style={styles.textInput} placeholder="Cornide" />
-            <TextInput
-              style={styles.textInput}
-              placeholder="gabricornidel@gmail.com"
-            />
-            <TextInput style={styles.textInput} placeholder="**********" />
-            <TextInput
-              style={styles.textInput}
-              placeholder="https://avatars.cloudflare.steamstatic.com/ef59212b7234514cc64e2eece3af15baf6eface1_full.jpg"
-            />
-          </View>
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+      </ScrollView>
     </>
   );
 }
@@ -96,10 +99,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     height: 40,
     width: 250,
-    backgroundColor: "#201325e0",
+    backgroundColor: "#8c45da",
     padding: 5,
     margin: 15,
     textAlign: "center",
     color: "white",
+    borderRadius: 10,
   },
 });
