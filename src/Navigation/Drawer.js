@@ -6,8 +6,13 @@ import {
 import Profile from "../Screen/Profile";
 import { StyleSheet, Text } from "react-native";
 import MenuButtonItem from "../Components/MenuButtonItem";
+
+import Store from "../Screen/Store";
+import AddGame from "../Screen/AddGame";
+import SignIn from "../Components/SignIn";
 import Library from "../Screen/Library";
 import Home from "../Screen/Home";
+
 
 const DrawerNav = createDrawerNavigator();
 
@@ -17,6 +22,9 @@ export default function Drawer() {
       <DrawerNav.Navigator drawerContent={(props) => <MenuItems {...props} />}>
       <DrawerNav.Screen name="Home" component={Home} />
         <DrawerNav.Screen name="Profile" component={Profile} />
+        <DrawerNav.Screen name="Store" component={Store} />
+        <DrawerNav.Screen name="Join" component={SignIn} />
+        <DrawerNav.Screen name="AddGame" component={AddGame} />
         <DrawerNav.Screen name="Library" component={Library} />
       </DrawerNav.Navigator>
     </>
@@ -43,10 +51,12 @@ const MenuItems = ({ navigation }) => {
           text="Library"
           onPress={() => navigation.navigate("Library")}
         />
-
-<MenuButtonItem
+        <MenuButtonItem
           text="Home"
           onPress={() => navigation.navigate("Home")}
+         <MenuButtonItem
+          text="Join"
+          onPress={() => navigation.navigate("Join")}
         />
       </DrawerContentScrollView>
     </>
