@@ -9,7 +9,7 @@ import {
   View,
   Alert,
 } from "react-native";
-import { Swiper, SwiperSlide } from "react-native-swiper";
+/* import { Swiper, SwiperSlide } from "react-native-swiper"; */
 /* import "swiper/css";
 import "swiper/less";
 import "swiper/less/navigation";
@@ -37,12 +37,12 @@ export default function Home() {
     console.log(bestGame);
   }, []);
 
-  let breakpoints={
+/*   let breakpoints={
     300: {
       slidesPerView: 3,
       spaceBetween: 20
     },
-  }
+  } */
   return (
     <ScrollView style={styles.scrollView}>
       <ImageBackground
@@ -62,8 +62,8 @@ export default function Home() {
         >
           <Text style={styles.textBtnGoToStore}>Go to store</Text>
         </Pressable>
-        <Image source={imageRated} style={styles.imageRated} />
-        <Swiper
+       <Image source={imageRated} style={styles.imageRated} />
+{/*         <Swiper
               style={{padding:"2rem 8rem"}}
               spaceBetween={5}
               slidesPerView={4}
@@ -78,9 +78,9 @@ export default function Home() {
                    <FotoHome photo={e.photo} name={e.name} />
                 </SwiperSlide>                
                 ))} 
-            </Swiper>
+            </Swiper>  */}
       </ImageBackground>
-    </ScrollView>
+    </ScrollView> 
   );
 }
 
@@ -95,9 +95,6 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   subTitle: {
-    /*     borderStyle:"solid",
-    borderColor:"red",
-    borderWidth:3, */
     textAlign: "center",
     textAlignVertical: "center",
     color: "white",
@@ -129,3 +126,4 @@ const styles = StyleSheet.create({
     width: 360,
   },
 });
+ 

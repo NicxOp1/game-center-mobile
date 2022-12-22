@@ -6,7 +6,7 @@ import {
 import Profile from "../Screen/Profile";
 import { StyleSheet, Text } from "react-native";
 import MenuButtonItem from "../Components/MenuButtonItem";
-import Store from "../Screen/Store";
+import Library from "../Screen/Library";
 import Home from "../Screen/Home";
 
 const DrawerNav = createDrawerNavigator();
@@ -17,7 +17,7 @@ export default function Drawer() {
       <DrawerNav.Navigator drawerContent={(props) => <MenuItems {...props} />}>
       <DrawerNav.Screen name="Home" component={Home} />
         <DrawerNav.Screen name="Profile" component={Profile} />
-        <DrawerNav.Screen name="Store" component={Store} />
+        <DrawerNav.Screen name="Library" component={Library} />
       </DrawerNav.Navigator>
     </>
   );
@@ -37,6 +37,11 @@ const MenuItems = ({ navigation }) => {
         <MenuButtonItem
           text="Store"
           onPress={() => navigation.navigate("Store")}
+        />
+
+        <MenuButtonItem
+          text="Library"
+          onPress={() => navigation.navigate("Library")}
         />
 
 <MenuButtonItem
