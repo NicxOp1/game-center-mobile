@@ -6,9 +6,11 @@ import {
 import Profile from "../Screen/Profile";
 import { StyleSheet, Text } from "react-native";
 import MenuButtonItem from "../Components/MenuButtonItem";
+
 import Store from "../Screen/Store";
 import AddGame from "../Screen/AddGame";
 import SignIn from "../Components/SignIn";
+import Library from "../Screen/Library";
 
 
 const DrawerNav = createDrawerNavigator();
@@ -21,6 +23,7 @@ export default function Drawer() {
         <DrawerNav.Screen name="Store" component={Store} />
         <DrawerNav.Screen name="Join" component={SignIn} />
         <DrawerNav.Screen name="AddGame" component={AddGame} />
+        <DrawerNav.Screen name="Library" component={Library} />
       </DrawerNav.Navigator>
     </>
   );
@@ -43,8 +46,8 @@ const MenuItems = ({ navigation }) => {
         />
 
         <MenuButtonItem
-          text="AddGame"
-          onPress={() => navigation.navigate("AddGame")}
+          text="Library"
+          onPress={() => navigation.navigate("Library")}
         />
          <MenuButtonItem
           text="Join"

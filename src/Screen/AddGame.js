@@ -14,26 +14,27 @@ const image = {
 };
 
 export default function AddGame() {
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [addGame, setaAddGame] = useState("");
+  const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState("");
-  const [age, setAge] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [price, setPrice] = useState("");
+  const [video, setVideo] = useState("");
+  const [date, setDate] = useState("");
+  const [category, setCategory] = useState();
 
   async function saveData() {
-    const userValue = {
-      name: name,
-      lastName: lastName,
+    const addGame = {
+      addGame: addGame,
+      description: description,
       photo: photo,
-      age: age,
-      email: email,
-      password: password,
-      role: "user",
+      price: price,
+      video: video,
+      date: date,
+      category: category,
     };
     try {
-      let res = await axios.post(`${BASE}/api/auth/`, userValue);
-      console.log(userValue);
+      let res = await axios.post(`${BASE}/api/auth/`, addGame);
+      console.log(addGame);
       if (res.data.success) {
         Alert.alert("check your mail");
       } else {
@@ -51,12 +52,12 @@ export default function AddGame() {
         <TextInput
           style={styles.textInput}
           placeholder="Game Name"
-          onChangeText={(text) => setName(text)}
+          onChangeText={(text) => setaAddGame(text)}
         />
         <TextInput
           style={styles.textInput}
           placeholder="Description"
-          onChangeText={(text) => setLastName(text)}
+          onChangeText={(text) => setDescription(text)}
         />
 
         <TextInput
@@ -68,37 +69,25 @@ export default function AddGame() {
         <TextInput
           style={styles.textInput}
           placeholder="Price"
-          onChangeText={(text) => setAge(text)}
+          onChangeText={(text) => setPrice(text)}
         />
 
         <TextInput
           style={styles.textInput}
           placeholder="Video"
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => setVideo(text)}
         />
 
         <TextInput
           style={styles.textInput}
           placeholder="Date"
-          onChangeText={(text) => setPassword(text)}
-        />
-
-        <TextInput
-          style={styles.textInput}
-          placeholder="Rate"
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(text) => setDate(text)}
         />
 
         <TextInput
           style={styles.textInput}
           placeholder="Category"
-          onChangeText={(text) => setPassword(text)}
-        />
-
-        <TextInput
-          style={styles.textInput}
-          placeholder="Category"
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(text) => setCategory(text)}
         />
 
         <Button onChange={saveData} title="Create" color="#4c2882" />
