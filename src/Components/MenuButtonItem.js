@@ -21,6 +21,7 @@ const style = StyleSheet.create({
     borderColor: "black",
     borderWidth: 2,
     marginLeft: 38,
+    marginBottom: 7,
   },
   titleNav: {
     color: "white",

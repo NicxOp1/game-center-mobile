@@ -1,9 +1,10 @@
-import cartReducer from './cartReducer'
+import cartReducer from "./cartReducer"
 import gamesReducer from "./gamesReducer"
+import userReducer from './userReducer'
 
-const rootReducer ={
+const rootReducer = {
     gamesReducer,
-    cartReducer
-/*     userReducer, */
+    cartReducer,
+    userReducer,
 }
 export default rootReducer

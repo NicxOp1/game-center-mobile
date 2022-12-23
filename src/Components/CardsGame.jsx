@@ -1,27 +1,35 @@
 import React from "react";
-import { Image, View, Text, StyleSheet, Button } from "react-native";
+import { Image, View, Text, StyleSheet, Button, Pressable } from "react-native";
 import cartActions from "../Redux/Actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { BASE } from "../Api/url";
+import gameActions from "../Redux/Actions/gamesActions";
 
-export default function CardGame({ item }) {
-    const dispatch = useDispatch();
-    let products = useSelector((store) => store.cartReducer.products);
-    let productOnCart = products.filter((e) => e._id === item._id);
-    const addToCart = () => {
-     let pepe = {
-        ...item,
-        unity: 1,
-      };
-      dispatch(cartActions.addGame(pepe));
+export default function CardGame({ item, navigate }) {
+  const dispatch = useDispatch()
+  let products = useSelector((store) => store.cartReducer.products);
+  let productOnCart = products.filter((e) => e._id === item._id);
+  const addToCart = () => {
+    let pepe = {
+      ...item,
+      unity: 1,
     };
-  
-  
-    const removeToCart = () => {
-      dispatch(cartActions.deleteProduct(item));
-    }
+    dispatch(cartActions.addGame(pepe));
+  };
+
+  const removeToCart = () => {
+    dispatch(cartActions.deleteProduct(item));
+  };
   return (
     <>
-      <View style={styles.CardGame}>
+      <Pressable
+        style={styles.CardGame}
+        onPress={() => {
+          dispatch(gameActions.getGameDetails({ id: item._id }));
+          navigate("Details", { id: item._id });
+        }}
+      >
         <Image
           source={{ uri: `${item.photo[0]}` }}
           style={styles.imgFlat}
@@ -34,17 +42,18 @@ export default function CardGame({ item }) {
         style={styles.description}>
             {item.description}
         </Text> */}
-          <Text style={styles.price}>Price :   {item.price}</Text>
-         {productOnCart.length > 0 ? ( <Button
-        title="Remove"
-        color={"red"}
-        onPress={() => removeToCart()}
-      />) : ( <Button
-        title="Buy"
-        onPress={() => addToCart()}
-      />)}
+          <Text style={styles.price}>Price : {item.price}</Text>
+          {productOnCart.length > 0 ? (
+            <Button
+              title="Remove"
+              color={"red"}
+              onPress={() => removeToCart()}
+            />
+          ) : (
+            <Button title="Buy" onPress={() => addToCart()} />
+          )}
         </View>
-      </View>
+      </Pressable>
     </>
   );
 }
@@ -53,11 +62,11 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
     alignItems: "center",
-    justifyContent:"space-between",
+    justifyContent: "space-between",
     width: 300,
     height: 380,
     margin: 35,
-    marginTop:-20
+    marginTop: -20,
   },
   CardGameDescription: {
     flex: 1,
@@ -84,7 +93,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 13,
     color: "#fff",
-  },btnBuy:{
-    
-  }
+  },
+  btnBuy: {},
 });

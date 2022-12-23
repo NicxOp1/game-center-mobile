@@ -9,6 +9,7 @@ import {
   Text,
   View,
   Alert,
+  Dimensions
 } from "react-native";
 /* import { Swiper, SwiperSlide } from "react-native-swiper"; */
 /* import "swiper/css";
@@ -56,26 +57,28 @@ let gameSliced = game.slice(0,4)
   </View>
   )
   return (
-    <ScrollView style={styles.scrollView}>
+    <ScrollView >
       <ImageBackground
         source={require("../../assets/Rectangle19.png")}
         resizeMode="cover"
         style={styles.imageBackground}
+
       >
         <Image
           source={require("../../assets/logoTitle.png")}
+
           style={styles.title}
         />
           <Text style={styles.subTitle}>Are you ready to play?</Text>
         <Pressable
           title="Go to store"
-          onPress={() => navigation.navigate("Store")}
+          onPress={() => navigation.navigate('Store')}
           style={styles.goToStore}
         >
           <Text style={styles.textBtnGoToStore}>Go to store</Text>
         </Pressable>
-       <View style={{height:500}} >
-        <StatusBar hidden/>
+        <View style={{height:500}} >
+                <StatusBar hidden/>
         <FlatList
            data={game}
            renderItem={oneGame}
@@ -88,13 +91,13 @@ let gameSliced = game.slice(0,4)
            />
            </View>
       </ImageBackground>
-    </ScrollView> 
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   scrollView: {
-    width: 360,
+    // width: 360,
   },
   title: {
     height: 70,
@@ -136,4 +139,3 @@ const styles = StyleSheet.create({
     width: 360,
   },
 });
- 

@@ -3,7 +3,29 @@ import cartActions from '../Actions/cartActions';
 
 const {addGame,plus,remove,deleteProduct} = cartActions
 const initialState = {
-    products: [],
+    products: [
+        {
+        name: "assasin",
+        price:40,
+        _id:1,
+        photo:["https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg?t=1656615305"],
+        unity:1
+    },{
+        name: "Pokemon",
+        price:30,
+        _id:2,
+        photo:["https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg?t=1656615305"],
+        unity:1
+
+    },{
+        name: "killl",
+        price:20,
+        _id:3,
+        photo:["https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg?t=1656615305"],
+        unity:1
+
+    }
+],
     newProducts: []
 };
 
@@ -11,11 +33,11 @@ const initialState = {
 const cartReducer = createReducer(initialState,(builder) =>{
     builder
         .addCase(addGame,(state,action)=>{
-            
+
             let newProduct = state.products.concat(action.payload)
             let sortedProducts = newProduct.sort(
                 (p1, p2) => (p1.name < p2.name) ? 1 : (p1.name > p2.name) ? -1 : 0)
-                console.log(sortedProducts)
+
             return {
                 ...state,
                 products: sortedProducts

@@ -2,19 +2,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 import BASE_URL from '../../url'
+import apiUrl from "../../../apiUrl";
 
 const getGame = createAsyncThunk('getGame',async()=>{
     try{
-        const response = await axios.get('https://game-center.onrender.com/games/')
+        const response = await axios.get(`https://game-center.onrender.com/games/`)
         return response.data.res
     }catch(err){
-        return{payload:"Error getting all games"}
+        return{payload:err.message}
+    }
+})
+const getGameDetails = createAsyncThunk('getGameDetails',async({id})=>{
+    try{
+        const response = await axios.get(`https://game-center.onrender.com/games/`+id)
+        return response.data.game
+    }catch(err){
+        return{payload:err.message}
     }
 })
 const filterGame = createAsyncThunk('filterGame',async(value)=>{
     let {rate} = value
     try{
-        const response = await axios.get(`https://game-center.onrender.com/games/?rate=`+rate)
+        const response = await axios.get(`https://game-center.onrender.com/games/?rate=${rate}`)
             return response.data.res
     }catch(err){
         return{
@@ -36,6 +45,7 @@ const filterGameInput = createAsyncThunk('filterGameInput', async ({ category, v
 const gameActions={
     getGame,
     filterGame,
-    filterGameInput
+    filterGameInput,
+    getGameDetails
 }
 export default gameActions
