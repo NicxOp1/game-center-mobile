@@ -8,6 +8,7 @@ import {
   Text,
   View,
   Alert,
+  Dimensions
 } from "react-native";
 /* import { Swiper, SwiperSlide } from "react-native-swiper"; */
 /* import "swiper/css";
@@ -17,7 +18,11 @@ import "swiper/less/pagination"; */
 import gamesActions from "../Redux/Actions/gamesActions";
 import React, { /* useState, */ useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-export default function Home() {
+const { width, height } = Dimensions.get('window');
+
+export default function Home({navigation}) {
+
+
   const image = {
     uri: "../../assets/Rectangle19",
   };
@@ -37,33 +42,35 @@ export default function Home() {
     console.log(bestGame); */
   }, []);
 
-/*   let breakpoints={
-    300: {
-      slidesPerView: 3,
-      spaceBetween: 20
-    },
-  } */
+  /*   let breakpoints={
+      300: {
+        slidesPerView: 3,
+        spaceBetween: 20
+      },
+    } */
   return (
-    <ScrollView style={styles.scrollView}>
+    <ScrollView >
       <ImageBackground
         source={require("../../assets/Rectangle19.png")}
         resizeMode="cover"
         style={styles.imageBackground}
+
       >
         <Image
           source={require("../../assets/logoTitle.png")}
+
           style={styles.title}
         ></Image>
         <Text style={styles.subTitle}>Are you ready to play?</Text>
         <Pressable
           title="Go to store"
-          onPress={() => Alert.alert("Go to store")}
+          onPress={() => navigation.navigate('Store')}
           style={styles.goToStore}
         >
           <Text style={styles.textBtnGoToStore}>Go to store</Text>
         </Pressable>
-       <Image source={imageRated} style={styles.imageRated} />
-{/*         <Swiper
+        <Image source={imageRated} style={styles.imageRated} />
+        {/*         <Swiper
               style={{padding:"2rem 8rem"}}
               spaceBetween={5}
               slidesPerView={4}
@@ -80,19 +87,19 @@ export default function Home() {
                 ))} 
             </Swiper>  */}
       </ImageBackground>
-    </ScrollView> 
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   scrollView: {
-    width: 360,
+    // width: 360,
   },
   title: {
     height: 70,
     width: "100%",
-    marginTop: -30,
-    position: "absolute",
+    // marginTop: -20,
+    // position: "absolute",
   },
   subTitle: {
     textAlign: "center",
@@ -122,8 +129,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
-    height: 400,
-    width: 360,
+    height: height,
+    width: width,
   },
 });
- 

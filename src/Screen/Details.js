@@ -6,58 +6,89 @@ import {
   ScrollView,
   Image,
 } from "react-native";
+import gameActions from '../Redux/Actions/gamesActions'
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from 'react'
+import BASE from '../Api/url'
+import axios from "axios";
+import cartActions from "../Redux/Actions/cartActions";
 
-export default function Details() {
+export default function Details({ navigation, route }) {
+  let [game, setGame] = useState({})
+  let [update, setUpdate] = useState(true)
+  const dispatch = useDispatch();
+  let products = useSelector((store) => store.cartReducer.products);
+  let gameDetails = useSelector((store) => store.gamesReducer.gameDetails);
+
+
+
+console.log(gameDetails);
+
+
+  let productOnCart = products.filter((e) => e._id === gameDetails._id);
+  const addToCart = () => {
+    let pepe = {
+      ...gameDetails,
+      unity: 1,
+    };
+    dispatch(cartActions.addGame(pepe));
+  };
+
+
+  const removeToCart = () => {
+    dispatch(cartActions.deleteProduct(gameDetails));
+  }
   return (
     <>
       <ScrollView style={styles.content}>
-        <View>
+      <View>
           <View style={styles.titleContent}>
-            <Text style={styles.title}>Counter-Strike: Global Offensive</Text>
+            <Text style={styles.title}> {gameDetails.name}</Text>
           </View>
           <View style={styles.contentImage}>
             <Image
-              source={{
-                uri: "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg?t=1668125812",
-              }}
+              source={{ uri: gameDetails.photo[0] }}
               style={{
                 height: 230,
                 width: 350,
                 borderColor: "black",
                 alignContent: "center",
                 borderRadius: 20,
-              }}
-            />
+              }} 
+             />
           </View>
           <View tyle={styles.subTitleContent}>
             <Text style={styles.description}>
-              Counter-Strike shocked the video game industry when the unlikely
-              mod became the most played PC action game in the world almost
-              immediately upon its release in August 1999, said Valve's Doug
-              Lombardi. For the past 12 years, it has continued to be one of the
-              most played games in the world, topping competitive gaming
-              tournaments and selling more than 25 million copies of the
-              franchise worldwide. CS:GO promises to expand the award-winning
-              gameplay of CS and bring it to gamers on PC, next-gen consoles,
-              and Mac.
+              {game.description}
             </Text>
           </View>
           <View style={styles.contentInfo}>
             <View style={styles.infoGame}>
               <Text style={styles.subtitleInfo}>Category :</Text>
-              <Text style={styles.subtitleInfo}>Date :</Text>
-              <Text style={styles.subtitleInfo}>Price :</Text>
+              <Text style={styles.subtitleInfo}>Date : </Text>
+              <Text style={styles.subtitleInfo}>Price : </Text>
             </View>
             <View style={styles.infoGame}>
-              <Text style={styles.subtitle}>FPS shooter</Text>
-              <Text style={styles.subtitle}>2012-09-21</Text>
-              <Text style={styles.subtitle}>$5</Text>
+              <Text style={styles.subtitle}> {gameDetails.category.join(' - ')}</Text>
+              <Text style={styles.subtitle}>{gameDetails.date.slice(0, 10)}</Text>
+              <Text style={styles.subtitle}>{gameDetails.price}</Text> 
+
+              
+             
+
             </View>
           </View>
-          <Text style={styles.subtitle}>rate</Text>
+
         </View>
         <View style={styles.contentButton}>
-          <Button style={styles.button} color="#5a3dcb" title="BUY" />
+          {productOnCart.length > 0 ? (<Button
+            title="Remove"
+            color={"red"}
+            onPress={() => removeToCart()}
+          />) : (<Button
+            title="Buy"
+            onPress={() => addToCart()}
+          />)}
         </View>
       </ScrollView>
     </>
