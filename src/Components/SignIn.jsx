@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,9 +6,10 @@ import {
   Dimensions,
   TextInput,
   Pressable,
+  Alert
 
 } from "react-native";
-import styles from "./styles";
+import styles from "./stylesSignIn";
 import Svg, { Image, Ellipse, ClipPath } from "react-native-svg";
 import Animated, {
   useSharedValue,
@@ -21,12 +22,29 @@ import Animated, {
   withSpring
 } from "react-native-reanimated";
 import { ScrollView } from "react-native-gesture-handler";
+import userActions from '../Redux/Actions/userActions'
+import axios from 'axios'
+import { BASE } from '../Api/url';
+import { NavigationHelpersContext, useNavigation } from '@react-navigation/native'
+import { useDispatch } from "react-redux";
 
 export default function App() {
   const { height, width } = Dimensions.get("window");
   const imagePosition = useSharedValue(1);
   const formButtonScale = useSharedValue(1);
   const [isRegistering, setIsRegistering] = useState(false);
+  const dispatch= useDispatch()
+   let {logWithToken}= userActions
+  let [name, setName]=useState('')
+  let [lastName, setLastName]=useState('')
+  let [email, setEmail]=useState('')
+  let [password, setPassword]=useState('')
+  let [age, setAge]=useState('')
+  let [photo, setPhoto]=useState('')
+
+  // form
+ 
+ 
 
   const imageAnimatedStyle = useAnimatedStyle(() => {
     const interpolation = interpolate(
@@ -42,7 +60,7 @@ export default function App() {
   });
 
   const buttonsAnimatedStyle = useAnimatedStyle(() => {
-    const interpolation = interpolate(imagePosition.value, [0, 1], [250, 0]);
+    const interpolation = interpolate(imagePosition.value, [0, 1], [500, 0]);
     return {
       
       opacity: withTiming(imagePosition.value, { duration: 500 }),
@@ -65,7 +83,7 @@ export default function App() {
   const formAnimatedStyle = useAnimatedStyle(() => {
     return {
         
-        height: 500,
+     height: 900, 
       opacity:
         imagePosition.value === 0
           ? withDelay(400, withTiming(1, { duration: 800 }))
@@ -84,6 +102,7 @@ export default function App() {
     if (isRegistering) {
       runOnJS(setIsRegistering)(false);
     }
+   
   };
 
   const registerHandler = () => {
@@ -92,8 +111,66 @@ export default function App() {
       runOnJS(setIsRegistering)(true);
     }
   };
+  const sendInfo=async()=>{
+   
+    
+    if(isRegistering){
+      let form={
+        name: name,
+        lastName: lastName,
+        email: email,
+        photo:  photo,
+        age: age,
+        password:password,
+      }
+
+       axios.post(`${BASE}auth/`, form)
+   .then((res=>{ console.log(res.data);
+    Alert.alert(
+      ` ${res.data.message}`,
+
+  )
+ 
+    }))
+    .catch(error => {
+      console.log(error);
+      Alert.alert(
+          ` ${error.message}`,
+      )
+
+  })
+   
+   
+  } else {
+    let form={
+      email: email,
+      password:password,
+    }
+    
+    axios.post(`${BASE}auth/signin`, form)
+   .then((res=>{ console.log(res.data);
+    Alert.alert(
+      ` ${res.data.message}`,
+  )
+    dispatch(logWithToken(res.data.response.token))
+   
+    }))
+    .catch(error => {
+      console.log(error);
+      Alert.alert(
+          ` ${error.message}`,
+      )
+
+  })
+    
+    }
+  
+
+  }
 
   return (
+    
+    <ScrollView>
     <Animated.View style={styles.container}>
       <Animated.View style={[StyleSheet.absoluteFill, imageAnimatedStyle]}>
         <Svg height={height + 100} width={width}>
@@ -125,12 +202,25 @@ export default function App() {
             <Text style={styles.buttonText}>REGISTER</Text>
           </Pressable>
         </Animated.View>
-        <Animated.View style={[styles.formInputContainer, formAnimatedStyle]}  >
-            <ScrollView  >
+        <Animated.View style={[styles.formInputContainer, formAnimatedStyle]} >
+            <ScrollView   >
           <TextInput
             placeholder="Email"
             placeholderTextColor="white"
             style={styles.textInput}
+            // value={email}
+            onChangeText={(email) => setEmail(email)} 
+            keyboardType={"email-address"}
+            required
+          
+          />
+            <TextInput
+            placeholder="Password"
+            placeholderTextColor="white"
+            style={styles.textInput}
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(password) => setPassword(password)}
           />
           {isRegistering && (
             <>
@@ -138,30 +228,38 @@ export default function App() {
               placeholder="Name"
               placeholderTextColor="white"
               style={styles.textInput}
+              value={name}
+              onChangeText={(name) => setName(name)} 
+
             />
             <TextInput
             placeholder="Last Name"
             placeholderTextColor="white"
             style={styles.textInput}
+            value={lastName}
+            onChangeText={(lastName) => setLastName(lastName)} 
              />
              <TextInput
             placeholder="Photo"
             placeholderTextColor="white"
             style={styles.textInput}
+            value={photo}
+            onChangeText={(photo) => setPhoto(photo)} 
+
              />
              <TextInput
+             type='number'
             placeholder="Age"
             placeholderTextColor="white"
             style={styles.textInput}
+            value={age}
+            onChangeText={(age) => setAge(age)} 
+            keyboardType={'numeric'}
              />
           </>)}
-          <TextInput
-            placeholder="Password"
-            placeholderTextColor="white"
-            style={styles.textInput}
-          />
+        
           <Animated.View style={[styles.formButton, formButtonAnimatedStyle]}>
-            <Pressable onPress={() => formButtonScale.value = withSequence(withSpring(1.5), withSpring(1))}>
+            <Pressable onPress={() => {formButtonScale.value = withSequence(withSpring(1.5), withSpring(1)), sendInfo() }}>
               <Text style={styles.buttonText}>
                 {isRegistering ? "REGISTER" : "LOG IN"}
               </Text>
@@ -171,5 +269,6 @@ export default function App() {
         </Animated.View>
       </View>
     </Animated.View>
+    </ScrollView>
   );
 }
