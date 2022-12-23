@@ -8,18 +8,21 @@ const initialState = {
         name: "assasin",
         price:40,
         _id:1,
-        photo:["https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg?t=1656615305"]
+        photo:["https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg?t=1656615305"],
+        unity:1
     },{
         name: "Pokemon",
         price:30,
         _id:2,
-        photo:["https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg?t=1656615305"]
+        photo:["https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg?t=1656615305"],
+        unity:1
 
     },{
         name: "killl",
         price:20,
         _id:3,
-        photo:["https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg?t=1656615305"]
+        photo:["https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg?t=1656615305"],
+        unity:1
 
     }
 ],

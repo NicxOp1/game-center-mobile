@@ -8,7 +8,12 @@ export default function Cart() {
   const { products } = useSelector((store) => store.cartReducer);
   const renderItemProducts = ({ item }) => {
     return <CardCart item={item}/>
+
   };
+  let total = 0;
+  if (products.length !== 0) {
+    products.map((e) => (total = total + e.price * e.unity));
+  }
   return (
     <View>
       {products.length > 0 ? (
@@ -19,6 +24,10 @@ export default function Cart() {
             keyExtractor={item => item._id }
             
           />
+          <View>
+            <Text>Total</Text>
+            <Text>${total}</Text>
+          </View>
         </SafeAreaView>
       ) : (
         <Text>No products</Text>
