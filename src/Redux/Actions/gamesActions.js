@@ -1,6 +1,7 @@
 /* primero preciso extraer los juegos con mas valoracion :  http://localhost:8080/games/ */
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
+import BASE_URL from '../../url'
 import apiUrl from "../../../apiUrl";
 
 const getGame = createAsyncThunk('getGame',async()=>{
@@ -22,8 +23,20 @@ const filterGame = createAsyncThunk('filterGame',async(value)=>{
         }
     }
 })
+const filterGameInput = createAsyncThunk('filterGameInput', async ({ category, value, order }) => {
+    
+    try {
+        const response = await axios.get(`https://game-center.onrender.com/games?${category}${value}${order}`)
+        return { game: response.data.res }
+    } catch (err) {
+        return {
+            payload: "error"
+        }
+    }
+})
 const gameActions={
     getGame,
-    filterGame
+    filterGame,
+    filterGameInput
 }
 export default gameActions

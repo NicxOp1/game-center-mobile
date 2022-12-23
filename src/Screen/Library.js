@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
 
-export default function Store() {
+export default function Library() {
   return (
     <ScrollView style={styles.contentStore}>
       <Text style={styles.title}>Library of your Games</Text>
