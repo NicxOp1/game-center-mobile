@@ -38,8 +38,8 @@ export default function Home() {
   useEffect(() => {
     dispatch(gamesActions.getGame());
     dispatch(gamesActions.filterGame(dato));
-    console.log(game);
-    console.log(bestGame);
+/*     console.log(game);
+    console.log(bestGame); */
   }, []);
 
   /*   let breakpoints={

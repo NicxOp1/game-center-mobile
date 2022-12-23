@@ -8,6 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useState } from "react";
+import BASE_URL from '../url'
 
 const image = {
   uri: "https://i.gifer.com/origin/e2/e2aec645e3f805bfeef5468bc9bf3a34.gif",
@@ -33,7 +34,7 @@ export default function AddGame() {
       category: category,
     };
     try {
-      let res = await axios.post(`${BASE}/api/auth/`, addGame);
+      let res = await axios.post(`${BASE_URL}/api/auth/`, addGame);
       console.log(addGame);
       if (res.data.success) {
         Alert.alert("check your mail");
