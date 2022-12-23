@@ -55,8 +55,13 @@ const MenuItems = ({ navigation }) => {
         <MenuButtonItem
           text="Home"
           onPress={() => navigation.navigate("Home")}
+<<<<<<< HEAD
+          />
+         <MenuButtonItem
+=======
         />
         <MenuButtonItem
+>>>>>>> 4aaabbf7157fda9fc2a91214e470cce0a93f159e
           text="Join"
           onPress={() => navigation.navigate("Join")}
         />
