@@ -13,6 +13,8 @@ import SignIn from "../Components/SignIn";
 import Library from "../Screen/Library";
 import Home from "../Screen/Home";
 import Details from "../Screen/Details";
+import EditProfile from "../Screen/EditProfile"
+
 
 const DrawerNav = createDrawerNavigator();
 
@@ -27,6 +29,7 @@ export default function Drawer() {
         <DrawerNav.Screen name="AddGame" component={AddGame} />
         <DrawerNav.Screen name="Library" component={Library} />
         <DrawerNav.Screen name="Details" component={Details} />
+        <DrawerNav.Screen name="EditProfile" component={EditProfile} />
       </DrawerNav.Navigator>
     </>
   );
@@ -55,13 +58,8 @@ const MenuItems = ({ navigation }) => {
         <MenuButtonItem
           text="Home"
           onPress={() => navigation.navigate("Home")}
-<<<<<<< HEAD
-          />
-         <MenuButtonItem
-=======
         />
         <MenuButtonItem
->>>>>>> 4aaabbf7157fda9fc2a91214e470cce0a93f159e
           text="Join"
           onPress={() => navigation.navigate("Join")}
         />
@@ -69,6 +67,10 @@ const MenuItems = ({ navigation }) => {
           text="Details"
           onPress={() => navigation.navigate("Details")}
         />
+{/*         <MenuButtonItem
+          text="Join"
+          onPress={() => navigation.navigate("EditDetails")}
+        /> */}
       </DrawerContentScrollView>
     </>
   );

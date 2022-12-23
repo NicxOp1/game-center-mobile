@@ -9,10 +9,8 @@ import {
   View,
   ScrollView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
-export default function Profile() {
-  const navigation = useNavigation();
+export default function EditProfile() {
   const image = {
     uri: "https://images01.nicepage.com/c461c07a441a5d220e8feb1a/506524b5fe295a46bca10adb/vcvv-min.jpg",
   };
@@ -40,7 +38,7 @@ export default function Profile() {
               />
               <View style={styles.contentProfile}>
                 <Text style={styles.textProfile}>Your Profile</Text>
-                <Button title="EDIT" color="#8a2be2" onPress={() => navigation.navigate("EditProfile")}/>
+                <Button title="EDIT" color="#8a2be2" onPress={() => navigation.navigate("Profile")}/>
               </View>
             </View>
             <StatusBar style="auto" />
@@ -101,7 +99,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     height: 40,
     width: 250,
-    backgroundColor: 'rgba(253, 253, 253, 0.594)',
+    backgroundColor: "#8c45da",
     padding: 5,
     margin: 15,
     textAlign: "center",
