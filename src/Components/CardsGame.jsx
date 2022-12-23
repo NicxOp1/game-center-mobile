@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Image, View, Text, StyleSheet, Button, Pressable } from "react-native";
 import cartActions from "../Redux/Actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,11 @@ export default function CardGame({ item, navigate }) {
     };
     dispatch(cartActions.addGame(pepe));
   };
-
+  
+  useEffect(() => {
+    dispatch(gameActions.getGameDetails({ id: item._id }));
+  }, [])
+  
   const removeToCart = () => {
     dispatch(cartActions.deleteProduct(item));
   };
@@ -26,6 +30,7 @@ export default function CardGame({ item, navigate }) {
       <Pressable
         style={styles.CardGame}
         onPress={() => {
+          
           dispatch(gameActions.getGameDetails({ id: item._id }));
           navigate("Details", { id: item._id });
         }}

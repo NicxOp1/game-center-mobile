@@ -24,7 +24,7 @@ import Animated, {
 import { ScrollView } from "react-native-gesture-handler";
 import userActions from '../Redux/Actions/userActions'
 import axios from 'axios'
-import  BASE  from '../Api/url';
+import  {BASE}  from '../Api/url';
 import { NavigationHelpersContext, useNavigation } from '@react-navigation/native'
 import { useDispatch } from "react-redux";
 
@@ -146,6 +146,7 @@ export default function App() {
       email: email,
       password:password,
     }
+    console.log(form);
     
     axios.post(`${BASE}auth/signin`, form)
    .then((res=>{ console.log(res.data);

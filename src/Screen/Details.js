@@ -21,7 +21,6 @@ export default function Details({ navigation, route }) {
   let gameDetails = useSelector((store) => store.gamesReducer.gameDetails);
 
 
-
 console.log(gameDetails);
 
 

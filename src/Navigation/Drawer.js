@@ -17,11 +17,11 @@ import Cart from "../Screen/Cart";
 
 
 const DrawerNav = createDrawerNavigator();
-
+headerBackground:"#282c34"
 export default function Drawer() {
   return (
     <>
-      <DrawerNav.Navigator drawerContent={(props) => <MenuItems {...props} />}>
+      <DrawerNav.Navigator screenOptions={{}} drawerContent={(props) => <MenuItems {...props} />}>
       <DrawerNav.Screen name="Home" component={Home} />
         <DrawerNav.Screen name="Profile" component={Profile} />
         <DrawerNav.Screen name="Store" component={Store} />
