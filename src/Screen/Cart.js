@@ -1,4 +1,4 @@
-import { View, Text, FlatList, SafeAreaView, StyleSheet } from "react-native";
+import { View, Text, FlatList, SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import React from "react";
 import { useSelector } from "react-redux";
 import CardCart from "../Components/CardCart";
@@ -15,15 +15,12 @@ export default function Cart() {
     products.map((e) => (total = total + e.price * e.unity));
   }
   return (
-    <View>
+    <ScrollView>
       {products.length > 0 ? (
         <SafeAreaView>
-          <FlatList
-            data={products}
-            renderItem={renderItemProducts}
-            keyExtractor={item => item._id }
-            
-          />
+          {products.map(e =>{
+            return <CardCart key={e._id} item={e} />
+          })}
           <View>
             <Text>Total</Text>
             <Text>${total}</Text>
@@ -32,7 +29,7 @@ export default function Cart() {
       ) : (
         <Text>No products</Text>
       )}
-    </View>
+    </ScrollView>
   );
 }
 

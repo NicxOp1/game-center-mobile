@@ -3,7 +3,7 @@ import { SafeAreaView,View, StyleSheet, TextInput,ImageBackground,FlatList,Text,
 import gameActions from '../Redux/Actions/gamesActions'
 import { useDispatch,useSelector } from "react-redux";
 import CardGame from "../Components/CardsGame";
-
+import apiUrl from "../../apiUrl";
 export default function Store() {
   const dispatch = useDispatch()
   const [text, setText] = useState('');
@@ -13,17 +13,15 @@ export default function Store() {
   useEffect(() => {
     dispatch(getGame())
   }, [])
-/*   console.log(text)
 
-console.log(game)     */
 
-  handleChange=(e)=>{
+const  handleChange=(e)=>{
   let valores = {
     category: "&category=",
     value: "&name="+e,
     order: "&price="
   }
-    console.log(e)
+
    
   dispatch(filterGameInput(valores))
 }
@@ -66,7 +64,7 @@ console.log(game)     */
         />
        <Text style={styles.text404}>We don't have that game brou</Text>
     
-       </View>):(a)
+       </View>):[]
     )}
       />
       
@@ -104,4 +102,3 @@ const styles = StyleSheet.create({
     color:"white"
   }
 });
-

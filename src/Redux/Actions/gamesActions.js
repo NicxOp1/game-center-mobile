@@ -6,7 +6,7 @@ import apiUrl from "../../../apiUrl";
 
 const getGame = createAsyncThunk('getGame',async()=>{
     try{
-        const response = await axios.get(`${apiUrl}/games/`)
+        const response = await axios.get(`https://game-center.onrender.com/games/`)
         return response.data.res
     }catch(err){
         return{payload:err.message}
@@ -15,7 +15,7 @@ const getGame = createAsyncThunk('getGame',async()=>{
 const filterGame = createAsyncThunk('filterGame',async(value)=>{
     let {rate} = value
     try{
-        const response = await axios.get(`${apiUrl}/games/?rate=${rate}`)
+        const response = await axios.get(`https://game-center.onrender.com/games/?rate=${rate}`)
             return response.data.res
     }catch(err){
         return{

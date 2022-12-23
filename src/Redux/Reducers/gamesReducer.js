@@ -12,27 +12,22 @@ const gamesReducer = createReducer(initialState,(builder)=>{
     .addCase(getGame.fulfilled,(state,action)=>{
         return{
             ...state,
-            // game:action.payload
+            game:action.payload
         }
     })
     .addCase(filterGame.fulfilled,(state,action)=>{
         // console.log(action.payload);
         return {
             ...state,
-            bestGame:action.payload.splice(0,4)
+            // bestGame:action.payload.splice(0,4)
         }
     })
     .addCase(filterGameInput.fulfilled, (state, action) => {
         return{ 
             ...state,
-            ...action.payload
+            game:action.payload
         }
     })
-    .addCase(filterGameInput.fulfilled, (state, action) => {
-        return{ 
-            ...state,
-            ...action.payload
-        }
-    })
+
 })
 export default gamesReducer

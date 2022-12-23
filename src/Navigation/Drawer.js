@@ -7,13 +7,14 @@ import Profile from "../Screen/Profile";
 import { StyleSheet, Text } from "react-native";
 import MenuButtonItem from "../Components/MenuButtonItem";
 
-// import Store from "../Screen/Store";
+import Store from "../Screen/Store";
 import AddGame from "../Screen/AddGame";
 import SignIn from "../Components/SignIn";
 import Library from "../Screen/Library";
 import Home from "../Screen/Home";
 import Details from "../Screen/Details";
 import Cart from "../Screen/Cart";
+
 
 const DrawerNav = createDrawerNavigator();
 
@@ -23,7 +24,7 @@ export default function Drawer() {
       <DrawerNav.Navigator drawerContent={(props) => <MenuItems {...props} />}>
         <DrawerNav.Screen name="Home" component={Home} />
         <DrawerNav.Screen name="Profile" component={Profile} />
-        {/* <DrawerNav.Screen name="Store" component={Store} /> */}
+        <DrawerNav.Screen name="Store" component={Store} />
         <DrawerNav.Screen name="Cart" component={Cart}/>
         <DrawerNav.Screen name="Join" component={SignIn} />
         <DrawerNav.Screen name="AddGame" component={AddGame} />
@@ -45,10 +46,10 @@ const MenuItems = ({ navigation }) => {
           onPress={() => navigation.navigate("Profile")}
         />
 
-        {/* <MenuButtonItem
+        <MenuButtonItem
           text="Store"
           onPress={() => navigation.navigate("Store")}
-        /> */}
+        />
         <MenuButtonItem
           text="Cart"
           onPress={() => navigation.navigate("Cart")}
@@ -61,13 +62,8 @@ const MenuItems = ({ navigation }) => {
         <MenuButtonItem
           text="Home"
           onPress={() => navigation.navigate("Home")}
-<<<<<<< HEAD
           />
          <MenuButtonItem
-=======
-        />
-        <MenuButtonItem
->>>>>>> 4aaabbf7157fda9fc2a91214e470cce0a93f159e
           text="Join"
           onPress={() => navigation.navigate("Join")}
         />
