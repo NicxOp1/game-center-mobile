@@ -13,6 +13,7 @@ import SignIn from "../Components/SignIn";
 import Library from "../Screen/Library";
 import Home from "../Screen/Home";
 import Details from "../Screen/Details";
+import Cart from "../Screen/Cart";
 
 const DrawerNav = createDrawerNavigator();
 
@@ -23,6 +24,7 @@ export default function Drawer() {
         <DrawerNav.Screen name="Home" component={Home} />
         <DrawerNav.Screen name="Profile" component={Profile} />
         {/* <DrawerNav.Screen name="Store" component={Store} /> */}
+        <DrawerNav.Screen name="Cart" component={Cart}/>
         <DrawerNav.Screen name="Join" component={SignIn} />
         <DrawerNav.Screen name="AddGame" component={AddGame} />
         <DrawerNav.Screen name="Library" component={Library} />
@@ -47,6 +49,10 @@ const MenuItems = ({ navigation }) => {
           text="Store"
           onPress={() => navigation.navigate("Store")}
         /> */}
+        <MenuButtonItem
+          text="Cart"
+          onPress={() => navigation.navigate("Cart")}
+        />
 
         <MenuButtonItem
           text="Library"

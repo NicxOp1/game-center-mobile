@@ -32,7 +32,7 @@ export default function Home() {
   let dato = { rate: "desc" };
   useEffect(() => {
     dispatch(gamesActions.getGame());
-    dispatch(gamesActions.filterGame(dato));
+    // dispatch(gamesActions.filterGame(dato));
     console.log(game);
     console.log(bestGame);
   }, []);
