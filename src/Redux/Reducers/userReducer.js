@@ -20,34 +20,34 @@ const userReducer = createReducer(InitialState,
             .addCase(SignIn.fulfilled, (state, action) => {
 
 
-                // let success = action.payload.success
-                // if (success) {
-                //     let user = action.payload.user
-                //     let token = action.payload.token
-                //    console.log(user) 
-                //     localStorage.setItem('token', JSON.stringify({ token: { user: token } }))
-                //     let newState = {
-                //         ...state,
-                //         id: user.id,
-                //         name: user.name,
-                //         lastName: user.lastName,
-                //         photo: user.photo,
-                //         email: user.email,
-                //         role: user.role,
-                //         logged: true,
-                //         token: token,
-                //         response: action.payload.response
-                //     }
-                //     return newState
-                // } else {
-                //      console.log(action.payload.response)
-                //     let newState = {
-                //         ...state,
-                //         response: action.payload.response,
-                //         success:false
-                //     }
-                //     return newState
-                // }
+                let success = action.payload.success
+                if (success) {
+                    let user = action.payload.user
+                    let token = action.payload.token
+                    console.log(user)
+                    localStorage.setItem('token', JSON.stringify({ token: { user: token } }))
+                    let newState = {
+                        ...state,
+                        id: user.id,
+                        name: user.name,
+                        lastName: user.lastName,
+                        photo: user.photo,
+                        email: user.email,
+                        role: user.role,
+                        logged: true,
+                        token: token,
+                        response: action.payload.response
+                    }
+                    return newState
+                } else {
+                    console.log(action.payload.response)
+                    let newState = {
+                        ...state,
+                        response: action.payload.response,
+                        success: false
+                    }
+                    return newState
+                }
             })
             .addCase(SignIn.rejected, (state, action) => {
 

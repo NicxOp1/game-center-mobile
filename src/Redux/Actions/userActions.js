@@ -7,24 +7,24 @@ const SignIn = createAsyncThunk('SignIn', async (form) => {
 
 
     try {
-        let res = await axios.post(`${BASE}/auth/signin`, form)
-        // let user = res.data.response
+        let res = await axios.post(`${BASE}auth/signin`, form)
+        let user = res.data.response
         console.log(res.data)
-        // if (res.data.success) {
-        //     return {
-        //         success: true,
-        //         user: user.userToken,
-        //         token: user.token,
-        //         response: res.data.message
-        //     }
+        if (res.data.success) {
+            return {
+                success: true,
+                user: user.userToken,
+                token: user.token,
+                response: res.data.message
+            }
 
-        // } else {
-        //     // console.log(res.data.message);
-        //     return {
-        //         success: false,
-        //         response: res.data.message
-        //     }
-        // }
+        } else {
+            // console.log(res.data.message);
+            return {
+                success: false,
+                response: res.data.message
+            }
+        }
 
 
     }

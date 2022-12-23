@@ -125,9 +125,9 @@ export default function App() {
         password:password,
       }
 
-      await axios.post(`${BASE}/auth/`, form)
+      await axios.post(`${BASE}auth/`, form)
    .then((res=>{
-  console.log(res)
+  console.log(res.data)
     
     }))
    
@@ -136,8 +136,9 @@ export default function App() {
       email: email,
       password:password,
     }
+    
     const answer= await dispatch(SignIn(form))
-    console.log(answer)
+    console.log(answer.data)
   //   if(answer.payload.success){
   //     await Alert.alert( `${answer.payload.response}`)
   //   } else {
