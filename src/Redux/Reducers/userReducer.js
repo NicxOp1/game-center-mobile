@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit'
 import userActions from '../Actions/userActions'
 const { SignIn, logWithToken, logOut } = userActions
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const InitialState = {
     id: '',
@@ -20,12 +21,12 @@ const userReducer = createReducer(InitialState,
             .addCase(SignIn.fulfilled, (state, action) => {
 
 
+
                 let success = action.payload.success
                 if (success) {
                     let user = action.payload.user
                     let token = action.payload.token
-                    console.log(user)
-                    localStorage.setItem('token', JSON.stringify({ token: { user: token } }))
+                    AsyncStorage.setItem('user', JSON.stringify({ token: { user: token } }))
                     let newState = {
                         ...state,
                         id: user.id,
@@ -40,7 +41,7 @@ const userReducer = createReducer(InitialState,
                     }
                     return newState
                 } else {
-                    console.log(action.payload.response)
+
                     let newState = {
                         ...state,
                         response: action.payload.response,
@@ -52,18 +53,19 @@ const userReducer = createReducer(InitialState,
             .addCase(SignIn.rejected, (state, action) => {
 
 
-                // let newState = {
-                //     ...state,
-                //     response: action.payload.response,
-                //     success:false,
-                // }
-                // return newState
+                let newState = {
+                    ...state,
+                    response: action.payload.response,
+                    success: false,
+                }
+                return newState
 
 
             })
             .addCase(logWithToken.fulfilled, (state, action) => {
+
                 const { success, user, token } = action.payload
-                console.log(token);
+
                 if (success) {
                     // const user=action.payload.user
 

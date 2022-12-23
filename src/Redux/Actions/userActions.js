@@ -9,7 +9,7 @@ const SignIn = createAsyncThunk('SignIn', async (form) => {
     try {
         let res = await axios.post(`${BASE}auth/signin`, form)
         let user = res.data.response
-        console.log(res.data)
+
         if (res.data.success) {
             return {
                 success: true,
@@ -19,7 +19,7 @@ const SignIn = createAsyncThunk('SignIn', async (form) => {
             }
 
         } else {
-            // console.log(res.data.message);
+            console.log(res.data.message);
             return {
                 success: false,
                 response: res.data.message
@@ -56,25 +56,25 @@ const SignIn = createAsyncThunk('SignIn', async (form) => {
 //     }
 // })
 const logWithToken = createAsyncThunk('logWithToken', async (token) => {
-    //  console.log(token)
+
     let headers = { headers: { 'Authorization': `Bearer ${token}` } }
     try {
-        let user = await axios.post(`http://localhost:8080/auth/token`, null, headers)
+        let user = await axios.post(`${BASE}auth/token`, null, headers)
 
-        console.log(user)
-        // return {
-        //     success: true,
-        //     user: user.data.response.user,
-        //     token: token
+        console.log(user.data.response)
+        return {
+            success: true,
+            user: user.data.response.user,
+            token: token
 
-        // }
+        }
     }
     catch (error) {
         console.log(error)
-        // return {
-        //     success: false,
-        //     response: error.message
-        // }
+        return {
+            success: false,
+            response: error.message
+        }
     }
 
 })

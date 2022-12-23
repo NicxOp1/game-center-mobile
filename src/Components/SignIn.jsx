@@ -6,6 +6,7 @@ import {
   Dimensions,
   TextInput,
   Pressable,
+  Alert
 
 } from "react-native";
 import styles from "./stylesSignIn";
@@ -21,21 +22,19 @@ import Animated, {
   withSpring
 } from "react-native-reanimated";
 import { ScrollView } from "react-native-gesture-handler";
-import { Alert } from "react-native-web";
-import { useDispatch } from  'react-redux'
 import userActions from '../Redux/Actions/userActions'
 import axios from 'axios'
 import { BASE } from '../Api/url';
+import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from "react-redux";
 
 export default function App() {
   const { height, width } = Dimensions.get("window");
   const imagePosition = useSharedValue(1);
   const formButtonScale = useSharedValue(1);
   const [isRegistering, setIsRegistering] = useState(false);
-
-  let dispatch = useDispatch()
-  let { SignIn } = userActions
-
+  const dispatch= useDispatch()
+   let {logWithToken}= userActions
   let [name, setName]=useState('')
   let [lastName, setLastName]=useState('')
   let [email, setEmail]=useState('')
@@ -125,11 +124,22 @@ export default function App() {
         password:password,
       }
 
-      await axios.post(`${BASE}auth/`, form)
-   .then((res=>{
-  console.log(res.data)
-    
+       axios.post(`${BASE}auth/`, form)
+   .then((res=>{ console.log(res.data);
+    Alert.alert(
+      ` ${res.data.message}`,
+
+  )
+ 
     }))
+    .catch(error => {
+      console.log(error);
+      Alert.alert(
+          ` ${error.message}`,
+      )
+
+  })
+   
    
   } else {
     let form={
@@ -137,14 +147,21 @@ export default function App() {
       password:password,
     }
     
-    const answer= await dispatch(SignIn(form))
-    console.log(answer.data)
-  //   if(answer.payload.success){
-  //     await Alert.alert( `${answer.payload.response}`)
-  //   } else {
- 
-  //     Alert.alert(`${ answer.payload.response }`)
-  // }
+    axios.post(`${BASE}auth/signin`, form)
+   .then((res=>{ console.log(res.data);
+    Alert.alert(
+      ` ${res.data.message}`,
+  )
+    dispatch(logWithToken(res.data.response.token))
+
+    }))
+    .catch(error => {
+      console.log(error);
+      Alert.alert(
+          ` ${error.message}`,
+      )
+
+  })
     
     }
   
@@ -152,6 +169,7 @@ export default function App() {
   }
 
   return (
+    
     <ScrollView>
     <Animated.View style={styles.container}>
       <Animated.View style={[StyleSheet.absoluteFill, imageAnimatedStyle]}>
