@@ -13,6 +13,8 @@ import SignIn from "../Components/SignIn";
 import Library from "../Screen/Library";
 import Home from "../Screen/Home";
 import Details from "../Screen/Details";
+import EditProfile from "../Screen/EditProfile"
+
 import Cart from "../Screen/Cart";
 
 
@@ -30,6 +32,7 @@ export default function Drawer() {
         <DrawerNav.Screen name="AddGame" component={AddGame} />
         <DrawerNav.Screen name="Library" component={Library} />
         <DrawerNav.Screen name="Details" component={Details} />
+        <DrawerNav.Screen name="EditProfile" component={EditProfile} />
       </DrawerNav.Navigator>
     </>
   );
@@ -71,6 +74,10 @@ const MenuItems = ({ navigation }) => {
           text="Details"
           onPress={() => navigation.navigate("Details")}
         />
+{/*         <MenuButtonItem
+          text="Join"
+          onPress={() => navigation.navigate("EditDetails")}
+        /> */}
       </DrawerContentScrollView>
     </>
   );
