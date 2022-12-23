@@ -24,7 +24,7 @@ export default function Drawer() {
   return (
     <>
       <DrawerNav.Navigator drawerContent={(props) => <MenuItems {...props} />}>
-        <DrawerNav.Screen name="Home" component={Home} />
+      <DrawerNav.Screen name="Home" component={Home} />
         <DrawerNav.Screen name="Profile" component={Profile} />
         <DrawerNav.Screen name="Store" component={Store} />
         <DrawerNav.Screen name="Cart" component={Cart}/>
@@ -70,7 +70,7 @@ const MenuItems = ({ navigation }) => {
           text="Join"
           onPress={() => navigation.navigate("Join")}
         />
-        <MenuButtonItem
+                <MenuButtonItem
           text="Details"
           onPress={() => navigation.navigate("Details")}
         />
