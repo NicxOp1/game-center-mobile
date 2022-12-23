@@ -30,7 +30,7 @@ export default function Cart() {
               return <CardCart key={e._id} item={e} />;
             })}
             <View style={style.totalContainer}>
-              <Text style={style.totalDescription}>Total</Text>
+              <Text style={style.totalDescription}>Total:</Text>
               <Text style={style.totalDescription}>${total}</Text>
             </View>
           </SafeAreaView>
@@ -59,7 +59,7 @@ const style = StyleSheet.create({
     textAlign: "center",
   },
   bodyCart: {
-    backgroundColor: "grey",
+    backgroundColor: "#02070d",
     
   },
   containerCart: {
@@ -70,7 +70,8 @@ const style = StyleSheet.create({
   },
   totalDescription:{
     fontWeight:"bold",
-    fontSize:20
+    fontSize:20,
+    color:"#cd1111"
   },
   notFound:{
     marginTop:20,
@@ -83,14 +84,13 @@ const style = StyleSheet.create({
 
 
   totalContainer: {
-    backgroundColor: "blue",
-    width: 300,
+
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignContent:"center",
     paddingTop:15,
     marginTop:10,
-    height:50,
-    marginLeft:50
+
+
   },
 });
