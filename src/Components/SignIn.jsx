@@ -24,7 +24,7 @@ import Animated, {
 import { ScrollView } from "react-native-gesture-handler";
 import userActions from '../Redux/Actions/userActions'
 import axios from 'axios'
-import { BASE } from '../Api/url';
+import  BASE  from '../Api/url';
 import { NavigationHelpersContext, useNavigation } from '@react-navigation/native'
 import { useDispatch } from "react-redux";
 

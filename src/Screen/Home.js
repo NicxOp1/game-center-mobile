@@ -20,7 +20,7 @@ import React, { /* useState, */ useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 const { width, height } = Dimensions.get('window');
 
-export default function Home() {
+export default function Home({navigation}) {
 
 
   const image = {
@@ -64,7 +64,7 @@ export default function Home() {
         <Text style={styles.subTitle}>Are you ready to play?</Text>
         <Pressable
           title="Go to store"
-          onPress={() => Alert.alert("Go to store")}
+          onPress={() => navigation.navigate('Store')}
           style={styles.goToStore}
         >
           <Text style={styles.textBtnGoToStore}>Go to store</Text>

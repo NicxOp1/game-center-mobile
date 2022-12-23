@@ -13,9 +13,7 @@ export default function Store({ navigation: { navigate } }) {
   useEffect(() => {
     dispatch(getGame())
   }, [])
-  /*   console.log(text)
-  
-  console.log(game)     */
+
 
   handleChange = (e) => {
     let valores = {
@@ -108,4 +106,3 @@ const styles = StyleSheet.create({
     color: "white"
   }
 });
-

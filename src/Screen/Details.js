@@ -11,29 +11,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from 'react'
 import BASE from '../Api/url'
 import axios from "axios";
+import cartActions from "../Redux/Actions/cartActions";
 
 export default function Details({ navigation, route }) {
-  let [game, setGame] = useState([])
+  let [game, setGame] = useState({})
+  let [update, setUpdate] = useState(true)
   const dispatch = useDispatch();
   let products = useSelector((store) => store.cartReducer.products);
-
-  useEffect(async () => {
-    console.log('estoy en el effect')
-    let res = await axios.get(`https://game-center.onrender.com/games/${route.params.id}`)
-      .then((res) => {
-        console.log(res.data)
-        setGame(res.data.game)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }, [])
+  let gameDetails = useSelector((store) => store.gamesReducer.gameDetails);
 
 
-  let productOnCart = products.filter((e) => e._id === game._id);
+
+console.log(gameDetails);
+
+
+  let productOnCart = products.filter((e) => e._id === gameDetails._id);
   const addToCart = () => {
     let pepe = {
-      ...game,
+      ...gameDetails,
       unity: 1,
     };
     dispatch(cartActions.addGame(pepe));
@@ -41,26 +36,26 @@ export default function Details({ navigation, route }) {
 
 
   const removeToCart = () => {
-    dispatch(cartActions.deleteProduct(game));
+    dispatch(cartActions.deleteProduct(gameDetails));
   }
   return (
     <>
       <ScrollView style={styles.content}>
-        <View>
+      <View>
           <View style={styles.titleContent}>
-            <Text style={styles.title}> {game.name}</Text>
+            <Text style={styles.title}> {gameDetails.name}</Text>
           </View>
           <View style={styles.contentImage}>
             <Image
-              source={{ uri: game.photo[0] }}
+              source={{ uri: gameDetails.photo[0] }}
               style={{
                 height: 230,
                 width: 350,
                 borderColor: "black",
                 alignContent: "center",
                 borderRadius: 20,
-              }}
-            />
+              }} 
+             />
           </View>
           <View tyle={styles.subTitleContent}>
             <Text style={styles.description}>
@@ -74,8 +69,12 @@ export default function Details({ navigation, route }) {
               <Text style={styles.subtitleInfo}>Price : </Text>
             </View>
             <View style={styles.infoGame}>
-              <Text style={styles.subtitle}> {game.category.join(' - ')}</Text>
-              <Text style={styles.subtitle}>{game.date.slice(0, 10)}</Text>
+              <Text style={styles.subtitle}> {gameDetails.category.join(' - ')}</Text>
+              <Text style={styles.subtitle}>{gameDetails.date.slice(0, 10)}</Text>
+              <Text style={styles.subtitle}>{gameDetails.price}</Text> 
+
+              
+             
 
             </View>
           </View>
