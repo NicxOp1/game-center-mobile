@@ -5,6 +5,7 @@ import {
   ImageBackground,
   StyleSheet,
   ScrollView,
+  FlatList,
   Text,
   View,
   Alert,
@@ -17,7 +18,8 @@ import "swiper/less/pagination"; */
 import gamesActions from "../Redux/Actions/gamesActions";
 import React, { /* useState, */ useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-export default function Home() {
+import { StatusBar } from "expo-status-bar";
+export default function Home( { navigation }) {
   const image = {
     uri: "../../assets/Rectangle19",
   };
@@ -36,13 +38,23 @@ export default function Home() {
 /*     console.log(game);
     console.log(bestGame); */
   }, []);
-
+let gameSliced = game.slice(0,4)
 /*   let breakpoints={
     300: {
       slidesPerView: 3,
       spaceBetween: 20
     },
   } */
+  const oneGame= ({item})=>(
+  <View style={{marginBottom:40, alignItems:"center"}}>
+         <Image source={{uri: `${item.photo[0]}`}} style={{
+               width: 350,
+               height:500,
+               resizeMode:'contain',
+               
+         }} />
+  </View>
+  )
   return (
     <ScrollView style={styles.scrollView}>
       <ImageBackground
@@ -53,32 +65,28 @@ export default function Home() {
         <Image
           source={require("../../assets/logoTitle.png")}
           style={styles.title}
-        ></Image>
-        <Text style={styles.subTitle}>Are you ready to play?</Text>
+        />
+          <Text style={styles.subTitle}>Are you ready to play?</Text>
         <Pressable
           title="Go to store"
-          onPress={() => Alert.alert("Go to store")}
+          onPress={() => navigation.navigate("Store")}
           style={styles.goToStore}
         >
           <Text style={styles.textBtnGoToStore}>Go to store</Text>
         </Pressable>
-       <Image source={imageRated} style={styles.imageRated} />
-{/*         <Swiper
-              style={{padding:"2rem 8rem"}}
-              spaceBetween={5}
-              slidesPerView={4}
-              breakpoints={breakpoints}
-              onSlideChange={()=>console.log('slide change')}
-              onSwiper={(swiper)=>console.log(swiper)}
-              >
-               {game.map((e) => (
-                <SwiperSlide id="sSlide" style={{
-                  padding:"1rem",height:"16rem",
-                  width:"25rem" ,minHeight:"20rem"}}> 
-                   <FotoHome photo={e.photo} name={e.name} />
-                </SwiperSlide>                
-                ))} 
-            </Swiper>  */}
+       <View style={{height:500}} >
+        <StatusBar hidden/>
+        <FlatList
+           data={game}
+           renderItem={oneGame}
+           keyExtractor={item=>item._id}
+           horizontal
+           pagingEnabled
+           style={{
+            height:500,
+            width:350,}}
+           />
+           </View>
       </ImageBackground>
     </ScrollView> 
   );
@@ -91,17 +99,17 @@ const styles = StyleSheet.create({
   title: {
     height: 70,
     width: "100%",
-    marginTop: -30,
+    marginTop: 60,
     position: "absolute",
   },
   subTitle: {
+    position:"absolute",
     textAlign: "center",
-    textAlignVertical: "center",
+    zIndex:20,
     color: "white",
-    fontSize: 17,
-    marginTop: 70,
-    height: 40,
-    marginTop: 40,
+    fontSize: 20,
+    marginTop: 140,
+    
   },
   goToStore: {
     display: "flex",
@@ -111,8 +119,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     borderRadius: 4,
     elevation: 3,
-    width: 100,
-    marginTop: -120,
+    width: 150,
+    height:50,
+    marginTop: -160,
     backgroundColor: "black",
   },
   textBtnGoToStore: {
@@ -122,7 +131,8 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
-    height: 400,
+    paddingTop:400,
+    height: 700,
     width: 360,
   },
 });
