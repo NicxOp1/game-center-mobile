@@ -7,8 +7,10 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
-
+import { useDispatch } from "react-redux";
+import cartActions from "../Redux/Actions/cartActions";
 export default function CardCart({ item }) {
+  const dispatch = useDispatch()
   return (
     <View style={styles.cartContainer}>
       <View style={styles.productDescription}>
@@ -21,7 +23,7 @@ export default function CardCart({ item }) {
           <Text style={styles.cartDescriptionText}>${item.price}</Text>
         </View>
       </View>
-      <Button color={"red"} title="X"></Button>
+      <Button onPress={()=>{dispatch(cartActions.deleteProduct(item))}} color={"red"} title="X"></Button>
     </View>
   );
 }
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
   },
   cartDescriptionText: {
     display:"flex",
-    fontSize: 18,
+    fontSize: 10,
     color: "#cd1111" ,
     fontWeight: "bold",
     textAlign: "center",
