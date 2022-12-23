@@ -32,7 +32,7 @@ const gamesReducer = createReducer(initialState,(builder)=>{
     .addCase(filterGameInput.fulfilled, (state, action) => {
         return{ 
             ...state,
-            game:action.payload
+            game:action.payload.game
         }
     })
 
