@@ -1,9 +1,10 @@
 import React from "react";
-import { Image, View, Text, StyleSheet, Button } from "react-native";
+import { Image, View, Text, StyleSheet, Button, Pressable } from "react-native";
 import cartActions from "../Redux/Actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function CardGame({ item }) {
+
+export default function CardGame({item, navigate}) {
     const dispatch = useDispatch();
     let products = useSelector((store) => store.cartReducer.products);
     let productOnCart = products.filter((e) => e._id === item._id);
@@ -21,7 +22,8 @@ export default function CardGame({ item }) {
     }
   return (
     <>
-      <View style={styles.CardGame}>
+      <Pressable style={styles.CardGame}
+      onPress={()=>navigate('Details', {id: item._id})}>
         <Image
           source={{ uri: `${item.photo[0]}` }}
           style={styles.imgFlat}
@@ -44,7 +46,7 @@ export default function CardGame({ item }) {
         onPress={() => addToCart()}
       />)}
         </View>
-      </View>
+      </Pressable>
     </>
   );
 }

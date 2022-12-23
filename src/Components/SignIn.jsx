@@ -25,7 +25,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import userActions from '../Redux/Actions/userActions'
 import axios from 'axios'
 import { BASE } from '../Api/url';
-import { useNavigation } from '@react-navigation/native'
+import { NavigationHelpersContext, useNavigation } from '@react-navigation/native'
 import { useDispatch } from "react-redux";
 
 export default function App() {
@@ -153,7 +153,7 @@ export default function App() {
       ` ${res.data.message}`,
   )
     dispatch(logWithToken(res.data.response.token))
-
+   
     }))
     .catch(error => {
       console.log(error);
