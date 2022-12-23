@@ -1,2 +1,2 @@
-const BASE_URL = process.env.BASE_URL_HOST
-module.exports.BASE_URL_HOST
+const BASE_URL = 'https://game-center.onrender.com'
+/* module.exports=BASE_URL_HOST */
