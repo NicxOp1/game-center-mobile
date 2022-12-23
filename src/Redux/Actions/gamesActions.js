@@ -12,6 +12,14 @@ const getGame = createAsyncThunk('getGame',async()=>{
         return{payload:err.message}
     }
 })
+const getGameDetails = createAsyncThunk('getGameDetails',async({id})=>{
+    try{
+        const response = await axios.get(`https://game-center.onrender.com/games/`+id)
+        return response.data.game
+    }catch(err){
+        return{payload:err.message}
+    }
+})
 const filterGame = createAsyncThunk('filterGame',async(value)=>{
     let {rate} = value
     try{
@@ -37,6 +45,7 @@ const filterGameInput = createAsyncThunk('filterGameInput', async ({ category, v
 const gameActions={
     getGame,
     filterGame,
-    filterGameInput
+    filterGameInput,
+    getGameDetails
 }
 export default gameActions
