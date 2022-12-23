@@ -63,7 +63,7 @@ let gameSliced = game.slice(0,4)
         resizeMode="cover"
         style={styles.imageBackground}
 
-      >
+      ><View>
         <Image
           source={require("../../assets/logoTitle.png")}
 
@@ -73,10 +73,10 @@ let gameSliced = game.slice(0,4)
         <Pressable
           title="Go to store"
           onPress={() => navigation.navigate('Store')}
-          style={styles.goToStore}
-        >
+          style={styles.goToStore}>
           <Text style={styles.textBtnGoToStore}>Go to store</Text>
         </Pressable>
+        </View>
         <View style={{height:500}} >
                 <StatusBar hidden/>
         <FlatList
@@ -97,21 +97,23 @@ let gameSliced = game.slice(0,4)
 
 const styles = StyleSheet.create({
   scrollView: {
-    // width: 360,
   },
   title: {
     height: 70,
-    width: "100%",
-    marginTop: 60,
+    width:300,
+    marginLeft: -70,
+    marginTop: -320,
     position: "absolute",
   },
   subTitle: {
     position:"absolute",
     textAlign: "center",
+    marginLeft:-20,
+    marginTop:-230,
     zIndex:20,
     color: "white",
-    fontSize: 20,
-    marginTop: 140,
+    fontSize: 17,
+    
     
   },
   goToStore: {
